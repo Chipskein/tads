@@ -1,0 +1,65 @@
+/**
+ * Retorna o valor absoluto de um número
+ * @param n número avaliado
+ * @returns modulo do número se typeof(n)==='number'
+ * @throws exception se n is not a number
+ */
+function abs(n) {
+    if (n===undefined||n===null||Number.isNaN(n)||typeof n !=='number'){
+        throw new Error("n is not a number")
+    }
+    return n < 0 ? -n : n
+}
+/**
+ * Calcula potência 
+ * @param base 
+ * @param exp 
+ * @returns pow
+ * @throws exceção se 'exp' não for decimal
+ */
+function my_pow(base, exp) {
+    if (base === undefined || exp===undefined) return;
+    if (base === null || exp === null) return null;
+    if (Number.isNaN(base) || Number.isNaN(exp)) return NaN
+    if (typeof base != 'number') return NaN;
+    if (typeof exp != 'number') return NaN;
+    if (exp === 0) return 1;
+    if (exp % 1 != 0) throw new Error("'exp' decimal not supported");
+    let res = exp < 0 ? (1 / base) : base;
+    for (let i = 1; i < abs(exp); i++) {
+        res *= exp < 0 ? (1 / base) : base;
+    };
+    return res
+}
+
+try{
+    abs(null)
+}
+catch(err){
+    console.log(err.message === 'n is not a number')
+}
+try {
+    abs()
+}
+catch (err) {
+    console.log(err.message==='n is not a number')    
+}
+console.log(abs(2)===2)
+console.log(abs(-2) === 2)
+console.log(my_pow(2,1)===2)
+console.log(my_pow(2, undefined)===undefined)
+console.log(my_pow(undefined, 0) === undefined)
+console.log(my_pow(1, null)===null)
+console.log(my_pow(null,0)===null)
+console.log(my_pow(NaN, 0)===NaN)
+console.log(my_pow(2, NaN)===NaN)
+console.log(my_pow(7, 2) === 49)
+try{
+    console.log(my_pow(7, 0.5))
+}
+catch(err){
+    console.log(err.message === "'exp' decimal not supported")
+}
+console.log(my_pow(7, -2) === 1/49)
+console.log(my_pow(Infinity,12)===Infinity)
+console.log(my_pow(Infinity, 0) === 1)
