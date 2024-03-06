@@ -1,0 +1,64 @@
+/** 
+ * @param n um número inteiro positivo contando com 0
+ * @returns um binário em string
+ * @throws joga uma excessão se não for um número 
+ * @throws joga uma excessão se não for um inteiro 
+*/
+function ToBin(n){
+    if(n===undefined||n===null||typeof n!=='number'||Number.isNaN(n)||n<0){
+        throw new Error("n is invalid")
+    }
+    if (n===0){
+        return n+''
+    }
+    if (n%1!=0){
+        throw new Error(`n is not a integer: ${n}`)
+    }
+    let result= "";
+
+    while((n/2)>= 1){
+        let bit=(n%2) | 0
+        result = bit + result
+        n /= 2
+    }
+    return 1 + result;
+}
+try{
+    console.log(ToBin(-12))
+}
+catch(err){
+    console.log(err.message==='n is invalid')
+}
+
+try {
+    console.log(ToBin(undefined))
+}
+catch (err) {
+    console.log(err.message === 'n is invalid')
+}
+try {
+    console.log(ToBin(null))
+}
+catch (err) {
+    console.log(err.message === 'n is invalid')
+}
+
+try {
+    console.log(ToBin(""))
+}
+catch (err) {
+    console.log(err.message === 'n is invalid')
+}
+
+try {
+    console.log(ToBin(1/2))
+}
+catch (err) {
+    console.log(err.message === 'n is not a integer')
+}
+
+console.log(ToBin(0) === '0')
+console.log(ToBin(1) === '1')
+console.log(ToBin(5) === '101')
+console.log(ToBin(123) === "1111011")
+console.log(ToBin(255) === "11111111")
